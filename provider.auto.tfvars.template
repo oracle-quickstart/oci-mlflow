@@ -1,0 +1,34 @@
+provider_oci = {
+  tenancy       = "<tenancy_OCID>"
+  user_id          = "<user_OCID>"
+  fingerprint   = "<key_fingerprint>"
+  key_file_path = "<pem_private_key_path>"
+  region        = "<oci_region>"
+}
+
+compartment_ids = {
+  my_compartment = "<compartment_OCID>"
+}
+
+s3 = {
+  aws_access_key_id="<customer_access_key_value>"
+  aws_secret_access_key="<customer_secret_key_value>"
+  endpoint_url="https://<object_storage_namespace>.compat.objectstorage.<object_storage_region>.oraclecloud.com"
+}
+
+s3_compartment_ids = {
+  my_compartment="<s3_compatibility_api_designated_compartment_OCID>"
+}
+
+mysql_admin_username="<mysql_admin_username>"
+mysql_admin_password="<mysql_admin_password>"
+mysql_mlflow_username="<mysql_mlflow_username>"
+mysql_mlflow_password="<mysql_mlflow_password>"
+
+username  = "oracleidentitycloudservice/xxx.yyy@oracle.com"
+authtoken = "<auth_token>"
+bucket_prefix = "<bucket_prefix>"
+
+ssh_private_key = "<ssh_private_key_path>"
+ssh_public_key = "<ssh_public_key_path>"
+
