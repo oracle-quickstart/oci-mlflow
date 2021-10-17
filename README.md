@@ -58,7 +58,7 @@ rerun this command to reinitialize your working directory. If you forget, other
 commands will detect it and remind you to do so if necessary.
 ```
 
-Once terraform is initialized, just run the following commands to preview and create the resouces:
+Once terraform is initialized, just run the following commands to preview and create the resources:
 
 ```bash
 $ terraform plan
