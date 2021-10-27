@@ -166,18 +166,7 @@ resource "null_resource" "jupyter_bastion" {
     type        = "ssh"
     user        = "opc"
   }
-
-  # jupyter
-  provisioner "file" {
-    source      = "${path.module}/../../userdata/jupyter-cert.pem"
-    destination = "~/userdata/jupyter-cert.pem"
-  }
-
-  provisioner "file" {
-    source      = "${path.module}/../../userdata/jupyter-key.key"
-    destination = "~/userdata/jupyter-key.key"
-  }
-
+  
   # bastion
   provisioner "file" {
     content     = data.template_file.mysql_user_templates.rendered
