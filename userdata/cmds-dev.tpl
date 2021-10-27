@@ -4,9 +4,6 @@ sudo docker run -it --rm --mount type=bind,source=$HOME/.aws,target=/root/.aws -
 
 2. Secure Jupyter Notebook inside the container:
 
-Add a password to Jupyter Notebook. When prompted, enter a suitably strong password. You can run this command any time that you want to change the password:
-jupyter notebook password
-
 Install a certificate for encrypted communications over HTTPS. To install a self-signed certificate:
 openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout jupyter-key.key -out jupyter-cert.pem
 
