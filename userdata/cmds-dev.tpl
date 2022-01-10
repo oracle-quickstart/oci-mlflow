@@ -15,4 +15,6 @@ export MLFLOW_TRACKING_URI=http://<tracking.ip>:5000
 
 jupyter notebook --ip 0.0.0.0 --no-browser --allow-root --port=8888 --certfile=jupyter-cert.pem --keyfile=jupyter-key.key &
 
+5. Keep Your Container Running In The Background
 
+You have to use two combinations, one after the other: ctrl+p followed by ctrl+q.
