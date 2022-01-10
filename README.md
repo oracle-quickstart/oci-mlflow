@@ -103,9 +103,9 @@ We will showcases how you can use MLflow end-to-end with MLflow sample applicati
 
 ### Training the Models
 
-1. Open train.ipynb in the Jupyter notebook dashboard. Add `mlflow.set_tracking_uri("http://<tracking.ip>:5000")` in the code somewhere before `mlflow.start_run()`. Complete all steps in train.ipynb.
+1. Open train.ipynb in the Jupyter notebook dashboard. Complete all steps in train.ipynb.
 
-2. Add `mlflow.set_tracking_uri("http://<tracking.ip>:5000")` in train.py somewhere before `mlflow.start_run()`. Run `train.py` inside the training docker. Try out some different values for alpha and l1_ratio by passing them as arguments:
+2. Run `train.py` inside the training docker. Try out some different values for alpha and l1_ratio by passing them as arguments:
 ```bash
 python train.py <alpha> <l1_ratio>
 ```
@@ -122,7 +122,7 @@ The model run page also shows you the code snippets to demonstrate how to make p
 
 Run the following command inside the serving docker to deploy a local REST server that can serve predictions:
 ```bash
-mlflow models serve -m s3://<bucket_name>/0/<run_uuid>/artifacts/<artifact_path> -h 0.0.0.0 -p 1234 &
+mlflow models serve -m runs:/<run_uuid>/model -h 0.0.0.0 -p 1234 &
 ```
 
 For models created by the MLflow sample `sklearn_elasticnet_wine`, you can make requests to `POST` `/invocations` in pandas split or record-oriented formats. 
