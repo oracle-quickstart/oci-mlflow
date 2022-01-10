@@ -114,7 +114,7 @@ python train.py <alpha> <l1_ratio>
 
 Use the MLflow UI (`http://<tracking.ip>:5000`) to compare the models that you have produced. On this page, you can see a list of experiment runs with metrics you can use to compare the models.
 
-Select a model, go to the model run page, expand the artifact and then copy the artifact full path (`s3://<bucket_name>/0/<run_uuid>/artifacts/<artifact_path>`).
+Select a model, go to the model run page and copy the logged_model path (`runs:/<run_uuid>/model`).
 
 The model run page also shows you the code snippets to demonstrate how to make predictions using the logged model.
 
