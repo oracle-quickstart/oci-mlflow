@@ -57,8 +57,9 @@ variable "instance_params" {
   type = map(object({
     ad                   = number
     shape                = string
+    memory_in_gbs        = number
+    ocpus                = number	
     hostname             = string
-    boot_volume_size     = number
     assign_public_ip     = bool
     preserve_boot_volume = bool
     compartment_name     = string

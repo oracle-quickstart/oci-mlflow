@@ -1,7 +1,6 @@
 // Copyright (c) 2020, Oracle and/or its affiliates. All rights reserved.
 // Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 locals {
-  linux_boot_volumes = [for instance in var.instance_params : instance.boot_volume_size >= 50 ? null : file(format("\n\nERROR: The boot volume size for linux instance %s is less than 50GB which is not permitted. Please add a boot volume size of 50GB or more", instance.hostname))]
   block_performance = {
     Low      = "0"
     Balanced = "10"
@@ -50,8 +49,12 @@ resource "oci_core_instance" "this" {
     nsg_ids          = [for nsg in each.value.nsgs : var.nsgs[nsg]]
   }
 
+  shape_config {
+    memory_in_gbs = each.value.memory_in_gbs
+    ocpus         = each.value.ocpus
+  }
+
   source_details {
-    boot_volume_size_in_gbs = each.value.boot_volume_size
     source_type             = "image"
     source_id               = var.linux_images[var.region]
     kms_key_id              = length(var.kms_key_ids) == 0 || each.value.kms_key_name == "" ? "" : var.kms_key_ids[each.value.kms_key_name]
