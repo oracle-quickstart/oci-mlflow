@@ -6,7 +6,7 @@ MLflow is library-agnostic. You can use it with any machine learning library, an
 
 In the following sections, we will show how to deploy MLflow on OCI and use the components in your machine learning applications with Docker containers for development, tracking, training, and serving. In a typical machine learning workflow, you can track experiment runs and models with MLflow. 
 
-You can also integrate MLflow with OCI AI Service (e.g., Anomaly Detection Service - tracking training data, parameters, and model ID, etc).
+You can also integrate MLflow with OCI Data Science service and OCI AI Services (e.g., tracking artifacts, parameters, metrics, and model, etc).
 
 
 ## Prerequisites
