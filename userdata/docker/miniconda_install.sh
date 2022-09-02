@@ -12,6 +12,6 @@ source ~/.bashrc
 echo "====== Set Up a Machine Learning Sandbox Environment ======"
 conda init bash
 source ~/.bashrc
-conda create -n mlflow python=3.8
+conda create -n mlflow python=3.9
 conda activate mlflow
 

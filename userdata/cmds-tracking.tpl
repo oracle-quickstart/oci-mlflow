@@ -1,13 +1,12 @@
-1. Run MLflow tracking server
+1. Opening a Port
 
-sudo docker run -it --network="host" --rm --mount type=bind,source=$HOME/.aws,target=/root/.aws -p 5000:5000 --name mlflow-tracking ${region_registry}.ocir.io/${tenancy_name}/${repo_name}/mlflow-tracking:0.0.1 /bin/bash
+sudo firewall-cmd --zone=public --add-port=5000/tcp --permanent
+sudo firewall-cmd --reload
 
-2. Run mlflow tracking server inside the container
+2. Run MLflow tracking server
 
-Replace <mysql_mlflow_username> and <mysql_mlflow_password> with your Terraform input variable values. We don't save these values in this file.
+Replace <access_key_id>, <secret_access_key>, <mysql_mlflow_username> and <mysql_mlflow_password>. We don't save these values in this file.
 
-mlflow server --backend-store-uri mysql+pymysql://<mysql_mlflow_username>:'<mysql_mlflow_password>'@${database_ip}:${database_port}/${dbname} --default-artifact-root ${bucket-url} --host 0.0.0.0 &
+sudo docker run -d --network="host" --rm -p 5000:5000 --name mlflow-tracking -e MLFLOW_S3_ENDPOINT_URL=${s3_endpoint_url} -e AWS_ACCESS_KEY_ID=<access_key_id> -e AWS_SECRET_ACCESS_KEY=<secret_access_key> -e BUCKET_URL=${bucket-url} -e MYSQL_USER=<mysql_mlflow_username> -e MYSQL_PWD='<mysql_mlflow_password>' -e MYSQL_HOST=${database_ip} -e MYSQL_PORT=${database_port} -e DBNAME=${dbname} ${region_registry}.ocir.io/${tenancy_name}/${repo_name}/mlflow-tracking:0.0.1 
 
-3. Keep Your Container Running In The Background
 
-You have to use two combinations, one after the other: ctrl+p followed by ctrl+q.

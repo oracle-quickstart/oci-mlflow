@@ -1,9 +1,8 @@
 FROM oraclelinux:7-slim
 
-ARG S3_ENDPOINT_URL
-ENV MLFLOW_S3_ENDPOINT_URL=$S3_ENDPOINT_URL
+WORKDIR /mlflow
 
-RUN yum install wget vim -y
+RUN yum install wget -y
 
 ENV CONDA_HOME=/opt/miniconda3
 COPY miniconda_install.sh /tmp/miniconda_install.sh
@@ -13,7 +12,8 @@ ENV PATH=$CONDA_HOME/bin:$PATH
 RUN echo $PATH
 
 COPY requirements.txt ./
-RUN python -m pip install --no-cache-dir -r requirements.txt
-
-EXPOSE 1234
-
+RUN python -m pip install --no-cache-dir -r requirements.txt && \
+    rm requirements.txt
+	
+EXPOSE ${SERVER_PORT}
+	

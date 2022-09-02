@@ -74,53 +74,30 @@ resource "oci_core_instance" "this" {
   
   provisioner "remote-exec" {
     inline = [
-      "mkdir ~/userdata",
-    ]
-  }
-
-  # s3 credentials
-  provisioner "remote-exec" {
-    inline = [
-      "mkdir ~/.aws",
-      "echo '[default]' > ~/.aws/credentials",
-      "echo 'aws_access_key_id=${var.s3.aws_access_key_id}' >> ~/.aws/credentials",
-      "echo 'aws_secret_access_key=${var.s3.aws_secret_access_key}' >> ~/.aws/credentials",
-    ]
-  }
-
-  # firewall rules
-  provisioner "file" {
-    source      = "${path.module}/../../userdata/firewall_rules.sh"
-    destination = "~/firewall_rules.sh"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "chmod +x ~/firewall_rules.sh",
-      "sudo ~/firewall_rules.sh ${each.value.hostname}",
+      "mkdir userdata",
     ]
   }
 
   # docker files
   provisioner "remote-exec" {
     inline = [
-      "mkdir ~/docker",
+      "mkdir docker",
     ]
   }
 
   provisioner "file" {
     source      = "${path.module}/../../userdata/docker/${local.anaconda_miniconda[each.value.hostname]}"
-    destination = "~/docker/${local.anaconda_miniconda[each.value.hostname]}"
+    destination = "docker/${local.anaconda_miniconda[each.value.hostname]}"
   }
 
   provisioner "file" {
     source      = "${path.module}/../../userdata/docker/Dockerfile-${each.value.hostname}"
-    destination = "~/docker/Dockerfile"
+    destination = "docker/Dockerfile"
   }
 
   provisioner "file" {
     source      = "${path.module}/../../userdata/docker/requirements-${each.value.hostname}.txt"
-    destination = "~/docker/requirements.txt"
+    destination = "docker/requirements.txt"
   }
 
   # docker
@@ -132,15 +109,15 @@ resource "oci_core_instance" "this" {
       "sudo systemctl start docker",
       "sudo systemctl enable docker",
       # login
-      "sudo docker login --username=${local.tenancy_name}/${var.username} --password='${var.authtoken}' ${local.region_registry}.ocir.io",
+      "echo '${var.authtoken}' | sudo docker login --username=${local.tenancy_name}/${var.username} --password-stdin  ${local.region_registry}.ocir.io",
     ]
   }
 
   # docker build
   provisioner "remote-exec" {
     inline = [
-      "cd ~/docker",
-      "sudo docker build -t mlflow-${each.value.hostname}:0.0.1 --build-arg S3_ENDPOINT_URL=${var.s3.endpoint_url} .",
+      "cd docker",
+      "sudo docker build -t mlflow-${each.value.hostname}:0.0.1 .",
       "sudo docker tag mlflow-${each.value.hostname}:0.0.1 ${local.region_registry}.ocir.io/${local.tenancy_name}/${var.repo_name}/mlflow-${each.value.hostname}:0.0.1",
       "sudo docker push ${local.region_registry}.ocir.io/${local.tenancy_name}/${var.repo_name}/mlflow-${each.value.hostname}:0.0.1",
     ]
@@ -173,7 +150,7 @@ resource "null_resource" "jupyter_bastion" {
   # bastion
   provisioner "file" {
     content     = data.template_file.mysql_user_templates.rendered
-    destination = "~/mysql_init.sql"
+    destination = "mysql_init.sql"
   }
 
   provisioner "remote-exec" {
@@ -200,7 +177,7 @@ resource "null_resource" "commands" {
   # commands file
   provisioner "file" {
     content     = data.template_file.commands_template[each.value.hostname].rendered
-    destination = "~/commands.txt"
+    destination = "commands.txt"
   }
 }
 
@@ -215,6 +192,7 @@ data "template_file" "commands_template" {
     mysql_mlflow_password      = var.mysql_mlflow_password
     tracking        = oci_core_instance.this["tracking"].public_ip
     serving         = oci_core_instance.this["serving"].public_ip
+	s3_endpoint_url = var.s3.endpoint_url
     bucket-url      = var.bucket-url
     database_port   = var.database_port
     database_ip     = var.database_ip

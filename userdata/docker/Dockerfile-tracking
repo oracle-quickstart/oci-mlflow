@@ -1,9 +1,8 @@
 FROM oraclelinux:7-slim
 
-ARG S3_ENDPOINT_URL
-ENV MLFLOW_S3_ENDPOINT_URL=$S3_ENDPOINT_URL
+WORKDIR /mlflow
 
-RUN yum install wget python3-devel mysql-devel gcc vim -y
+RUN yum install wget -y
 
 ENV CONDA_HOME=/opt/miniconda3
 COPY miniconda_install.sh /tmp/miniconda_install.sh
@@ -13,6 +12,14 @@ ENV PATH=$CONDA_HOME/bin:$PATH
 RUN echo $PATH
 
 COPY requirements.txt ./
-RUN python -m pip install --no-cache-dir -r requirements.txt
-
+RUN python -m pip install --no-cache-dir -r requirements.txt && \
+    rm requirements.txt
+	
 EXPOSE 5000
+
+CMD mlflow server \
+    --host 0.0.0.0 \
+    --port 5000 \
+    --default-artifact-root ${BUCKET_URL} \
+    --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PWD}@${MYSQL_HOST}:${MYSQL_PORT}/${DBNAME}
+ 

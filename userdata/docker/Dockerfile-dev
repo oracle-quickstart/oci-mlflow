@@ -1,7 +1,6 @@
 FROM oraclelinux:7-slim
 
-ARG S3_ENDPOINT_URL
-ENV MLFLOW_S3_ENDPOINT_URL=$S3_ENDPOINT_URL
+WORKDIR /mlflow
 
 RUN yum install wget git vim -y
 
@@ -13,7 +12,8 @@ ENV PATH=$CONDA_HOME/bin:$PATH
 RUN echo $PATH
 
 COPY requirements.txt ./
-RUN python -m pip install --no-cache-dir -r requirements.txt
+RUN python -m pip install --no-cache-dir -r requirements.txt && \
+    rm requirements.txt
 
 RUN jupyter notebook --generate-config
 
