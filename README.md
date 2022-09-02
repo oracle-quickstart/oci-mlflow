@@ -120,10 +120,7 @@ The model run page also shows you the code snippets to demonstrate how to make p
 
 ### Serving the Model
 
-Run the following command inside the serving docker to deploy a local REST server that can serve predictions:
-```bash
-mlflow models serve -m runs:/<run_uuid>/model -h 0.0.0.0 -p 1234 &
-```
+Follow the instruction in "~/commands.txt" on the serving compute instance to deploy a local REST server that can serve predictions using the model-uri.
 
 For models created by the MLflow sample `sklearn_elasticnet_wine`, you can make requests to `POST` `/invocations` in pandas split or record-oriented formats. 
 
@@ -135,7 +132,7 @@ curl -X POST -H "Content-Type:application/json; format=pandas-split" --data '{"c
 
 You should see the output of wine quality in the response.
 
-If you want to use a different port, you will need to expose the port in Docker and add firewall rules on the serving compute instance.
+If you want to use a different port, you will need to add firewall rules on the serving compute instance.
 
 ## Destroy the Deployment 
 
