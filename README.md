@@ -13,7 +13,7 @@ You can also integrate MLflow with OCI Data Science service and OCI AI Services 
 
 Permission to `manage` the following types of resources in your Oracle Cloud Infrastructure tenancy: `vcns`, `internet-gateways`, `route-tables`, `security-lists`, `subnets`, `buckets`, and `mysql-instances`.
 
-Quota to create the following resources: 1 VCN, 1 subnet, 1 Internet Gateway, 1 route rules, 1 MySQL Database Service, 1 Object Storage bucket, and 4 compute instances.
+Quota to create the following resources: 1 VCN, 1 subnet, 1 Internet Gateway, 1 route rules, 1 MySQL Database Service, 1 Object Storage bucket, and 3 compute instances.
 
 If you don't have the required permissions and quota, contact your tenancy administrator. See [Policy Reference](https://docs.cloud.oracle.com/en-us/iaas/Content/Identity/Reference/policyreference.htm), [Service Limits](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcequotas.htm), and [Compartment Quotas](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcequotas.htm).
 
