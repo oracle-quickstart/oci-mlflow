@@ -7,11 +7,10 @@ locals {
     High     = "20"
   }
 
-  jupyter_bastion_host = "dev"
+  tracking_bastion_host = "tracking"
   region_registry      = [for el in data.oci_identity_regions.test_regions.regions : lower(el.key) if el.name == var.provider_oci.region][0]
   tenancy_name         = data.oci_identity_tenancy.test_tenancy.name
   anaconda_miniconda = {
-    "dev"      = "miniconda_install.sh"
     "serving"  = "miniconda_install.sh"
     "training" = "miniconda_install.sh"
     "tracking" = "miniconda_install.sh"
@@ -138,9 +137,9 @@ data "template_file" "mysql_user_templates" {
   }
 }
 
-resource "null_resource" "jupyter_bastion" {
+resource "null_resource" "tracking_bastion" {
   connection {
-    host        = oci_core_instance.this[local.jupyter_bastion_host].public_ip
+    host        = oci_core_instance.this[local.tracking_bastion_host].public_ip
     private_key = file(var.ssh_private_key)
     timeout     = "180s"
     type        = "ssh"

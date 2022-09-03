@@ -4,7 +4,7 @@ MLflow is an open source platform to manage the ML lifecycle, including experime
 
 MLflow is library-agnostic. You can use it with any machine learning library, and in any programming language, since all functions are accessible through a REST API and CLI. For convenience, the project also includes a Python API, R API, and Java API.
 
-In the following sections, we will show how to deploy MLflow on OCI and use the components in your machine learning applications with Docker containers for development, tracking, training, and serving. In a typical machine learning workflow, you can track experiment runs and models with MLflow. 
+In the following sections, we will show how to deploy MLflow on OCI and use the components in your machine learning applications with Docker containers for tracking, training, and serving. In a typical machine learning workflow, you can track experiment runs and models with MLflow. 
 
 You can also integrate MLflow with OCI Data Science service and OCI AI Services (e.g., tracking artifacts, parameters, metrics, and model, etc).
 
@@ -24,7 +24,7 @@ First off we'll need to do some pre deploy setup.  That's all detailed [here](ht
 
 Secondly, create a provider.auto.tfvars file (`cp provider.auto.tfvars.template provider.auto.tfvars`) and set all the parameters in the file. For s3 parameters you can reference [here](https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/s3compatibleapi.htm).
 
-You might need to update `userdata\docker\requirements-dev.txt`, and `userdata\docker\requirements-training.txt` files with required dependencies for your specific machine learning applications with Python. You can also install extra Python packages in the docker containers later. 
+You might need to update `userdata\docker\requirements-training.txt` files with required dependencies for your specific machine learning applications with Python. You can also install extra Python packages in the docker containers later. 
 
 Make sure you have terraform v0.14+ cli installed and accessible from your terminal.
 
@@ -65,15 +65,11 @@ $ terraform plan
 $ terraform apply
 ```
 
-You can find the IPs of compute instances (dev, tracking, training, and serving) from the Terraform output values:
+You can find the IPs of compute instances (tracking, training, and serving) from the Terraform output values:
 
 ```bash
 ...
 compute_linux_instances = {
-  "dev" = {
-    "id" = "ocid1.instance.oc1..."
-    "ip" = "..."
-  }
   "serving" = {
     "id" = "ocid1.instance.oc1..."
     "ip" = "..."
@@ -90,9 +86,7 @@ compute_linux_instances = {
 ...
 ```
 
-You then ssh to each compute instances and follow the instructions in "~/commands.txt" to start the dockers, start MLflow tracking server, and run Jupiter notebook. 
-
-You can find the notebook URL (`https://127.0.0.1:8888/?token=<token_value>`) when starting the Jupyter notebook. You need to replace 127.0.0.1 in the URL with `<dev.ip>` to access the Jupyter Notebook dashboard in a browser.
+You then ssh to each compute instances and follow the instructions in "~/commands.txt" to start the dockers, and start MLflow tracking server. 
 
 The MLflow tracking server has two components for storage: a backend store and an artifact store. We use a MySQL Database Service instance as the backend store and an Object Storage bucket as the artifact store.
 
@@ -103,9 +97,9 @@ We will showcases how you can use MLflow end-to-end with MLflow sample applicati
 
 ### Training the Models
 
-1. Open train.ipynb in the Jupyter notebook dashboard. Complete all steps in train.ipynb.
+1. Create a OCI Data Science [notebook session](https://docs.oracle.com/en-us/iaas/data-science/using/manage-notebook-sessions.htm) to access a JupyterLab interface using a customizable compute, storage, and network configuration. Add `MLFLOW_TRACKING_URI`, `MLFLOW_S3_ENDPOINT_URL`, `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` custom environment variables to your notebook session. Use the machine learning libraries in the JupyterLab interface to complete all steps in [train.ipynb](https://github.com/mlflow/mlflow/blob/master/examples/sklearn_elasticnet_wine/train.ipynb). 
 
-2. Run `train.py` inside the training docker. Try out some different values for alpha and l1_ratio by passing them as arguments:
+2. Run [train.py](https://github.com/mlflow/mlflow/blob/master/examples/sklearn_elasticnet_wine/train.py) inside the training docker. Try out some different values for alpha and l1_ratio by passing them as arguments:
 ```bash
 python train.py <alpha> <l1_ratio>
 ```

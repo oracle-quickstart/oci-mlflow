@@ -1,9 +1,0 @@
-PyYAML
-jupyter 
-mlflow
-boto3
-numpy
-scipy
-pandas
-scikit-learn
-cloudpickle

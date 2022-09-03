@@ -6,28 +6,6 @@ repo_name = "mlflow_repo"
 
 # Instances parameters
 instance_params = {
-  dev = {
-    ad                   = 1
-    shape                = "VM.Standard.E4.Flex"
-    memory_in_gbs        = 64
-    ocpus                = 4	
-    hostname             = "dev"
-    preserve_boot_volume = false
-    assign_public_ip     = true
-    compartment_name     = "my_compartment"
-    subnet_name          = "sb_mlflow"
-    device_disk_mappings = "/u01:/dev/oracleoci/oraclevdb"
-    freeform_tags = {
-      "client" : "mlflow",
-      "department" : "mlflow"
-    }
-    kms_key_name       = ""
-    block_vol_att_type = "paravirtualized"
-    encrypt_in_transit = false
-    fd                 = 1
-    image_version      = "oel7"
-    nsgs               = []
-  }
   tracking = {
     ad                   = 1
     shape                = "VM.Standard.E4.Flex"
@@ -38,7 +16,7 @@ instance_params = {
     assign_public_ip     = true
     compartment_name     = "my_compartment"
     subnet_name          = "sb_mlflow"
-    device_disk_mappings = ""
+    device_disk_mappings = "/u01:/dev/oracleoci/oraclevdb"
     freeform_tags = {
       "client" : "mlflow",
       "department" : "mlflow"
