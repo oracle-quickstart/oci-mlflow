@@ -73,8 +73,8 @@ sl_params = {
 
         tcp_options = [
           {
-            min = "5000"
-            max = "5000"
+            min = "3000"
+            max = "3000"
           },
         ]
 
@@ -103,8 +103,8 @@ sl_params = {
 
         tcp_options = [
           {
-            min = "1234"
-            max = "1234"
+            min = "1230"
+            max = "1250"
           },
         ]
 

@@ -21,5 +21,5 @@ CMD mlflow server \
     --host 0.0.0.0 \
     --port 5000 \
     --default-artifact-root ${BUCKET_URL} \
-    --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PWD}@${MYSQL_HOST}:${MYSQL_PORT}/${DBNAME}
+    --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PWD}@${MYSQL_HOST}:${MYSQL_PORT}/${DB_NAME}
  

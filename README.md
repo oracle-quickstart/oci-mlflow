@@ -86,7 +86,7 @@ compute_linux_instances = {
 ...
 ```
 
-You then ssh to each compute instances and follow the instructions in "~/commands.txt" to start the dockers, and start MLflow tracking server. 
+You then ssh to each compute instances and follow the instructions in "~/commands.txt" to start MLflow tracking server, setup HTTP Basic authentication, and serve a model. 
 
 The MLflow tracking server has two components for storage: a backend store and an artifact store. We use a MySQL Database Service instance as the backend store and an Object Storage bucket as the artifact store.
 
@@ -97,7 +97,7 @@ We will showcases how you can use MLflow end-to-end with MLflow sample applicati
 
 ### Training the Models
 
-1. Create a OCI Data Science [notebook session](https://docs.oracle.com/en-us/iaas/data-science/using/manage-notebook-sessions.htm) to access a JupyterLab interface using a customizable compute, storage, and network configuration. Add `MLFLOW_TRACKING_URI`, `MLFLOW_S3_ENDPOINT_URL`, `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` custom environment variables to your notebook session. Use the machine learning libraries in the JupyterLab interface to complete all steps in [train.ipynb](https://github.com/mlflow/mlflow/blob/master/examples/sklearn_elasticnet_wine/train.ipynb). 
+1. Create a OCI Data Science [notebook session](https://docs.oracle.com/en-us/iaas/data-science/using/manage-notebook-sessions.htm) to access a JupyterLab interface using a customizable compute, storage, and network configuration. Add `MLFLOW_TRACKING_URI`, `MLFLOW_TRACKING_USERNAME`,`MLFLOW_TRACKING_PASSWORD`,`MLFLOW_S3_ENDPOINT_URL`, `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` custom environment variables to your notebook session. Use the machine learning libraries in the JupyterLab interface to complete all steps in [train.ipynb](https://github.com/mlflow/mlflow/blob/master/examples/sklearn_elasticnet_wine/train.ipynb). 
 
 2. Run [train.py](https://github.com/mlflow/mlflow/blob/master/examples/sklearn_elasticnet_wine/train.py) inside the training docker. Try out some different values for alpha and l1_ratio by passing them as arguments:
 ```bash
