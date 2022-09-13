@@ -11,9 +11,7 @@ RUN sh /tmp/miniconda_install.sh
 ENV PATH=$CONDA_HOME/bin:$PATH
 RUN echo $PATH
 
-COPY requirements.txt ./
-RUN python -m pip install --no-cache-dir -r requirements.txt && \
-    rm requirements.txt
+RUN python -m pip install mlflow pymysql boto3
 	
 EXPOSE 5000
 

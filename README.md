@@ -78,10 +78,6 @@ compute_linux_instances = {
     "id" = "ocid1.instance.oc1..."
     "ip" = "..."
   }
-  "training" = {
-    "id" = "ocid1.instance.oc1..."
-    "ip" = "..."
-  }
 }
 ...
 ```
@@ -97,12 +93,9 @@ We will showcases how you can use MLflow end-to-end with MLflow sample applicati
 
 ### Training the Models
 
-1. Create a OCI Data Science [notebook session](https://docs.oracle.com/en-us/iaas/data-science/using/manage-notebook-sessions.htm) to access a JupyterLab interface using a customizable compute, storage, and network configuration. Add `MLFLOW_TRACKING_URI`, `MLFLOW_TRACKING_USERNAME`,`MLFLOW_TRACKING_PASSWORD`,`MLFLOW_S3_ENDPOINT_URL`, `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` custom environment variables to your notebook session. Use the machine learning libraries in the JupyterLab interface to complete all steps in [train.ipynb](https://github.com/mlflow/mlflow/blob/master/examples/sklearn_elasticnet_wine/train.ipynb). 
+Create a OCI Data Science [notebook session](https://docs.oracle.com/en-us/iaas/data-science/using/manage-notebook-sessions.htm) to access a JupyterLab interface using a customizable compute, storage, and network configuration. Add `MLFLOW_TRACKING_URI`, `MLFLOW_TRACKING_USERNAME`,`MLFLOW_TRACKING_PASSWORD`,`MLFLOW_S3_ENDPOINT_URL`, `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` custom environment variables to your notebook session. Use the machine learning libraries () the JupyterLab interface to complete all steps in [train.ipynb](https://github.com/mlflow/mlflow/blob/master/examples/sklearn_elasticnet_wine/train.ipynb). 
 
-2. Run [train.py](https://github.com/mlflow/mlflow/blob/master/examples/sklearn_elasticnet_wine/train.py) inside the training docker. Try out some different values for alpha and l1_ratio by passing them as arguments:
-```bash
-python train.py <alpha> <l1_ratio>
-```
+You need to install mlflow and boto3 libraries if not preinstalled in your conda environment in your notebook session.
 
 ### Comparing the Models
 

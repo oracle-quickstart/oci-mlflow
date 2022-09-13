@@ -28,28 +28,6 @@ instance_params = {
     image_version      = "oel7"
     nsgs               = []
   }
-  training = {
-    ad                   = 1
-    shape                = "VM.Standard.E4.Flex"
-    memory_in_gbs        = 128
-    ocpus                = 8	
-    hostname             = "training"
-    preserve_boot_volume = false
-    assign_public_ip     = true
-    compartment_name     = "my_compartment"
-    subnet_name          = "sb_mlflow"
-    device_disk_mappings = ""
-    freeform_tags = {
-      "client" : "mlflow",
-      "department" : "mlflow"
-    }
-    kms_key_name       = ""
-    block_vol_att_type = "paravirtualized"
-    encrypt_in_transit = false
-    fd                 = 1
-    image_version      = "oel7"
-    nsgs               = []
-  }
   serving = {
     ad                   = 1
     shape                = "VM.Standard.E4.Flex"

@@ -12,7 +12,6 @@ locals {
   tenancy_name         = data.oci_identity_tenancy.test_tenancy.name
   anaconda_miniconda = {
     "serving"  = "miniconda_install.sh"
-    "training" = "miniconda_install.sh"
     "tracking" = "miniconda_install.sh"
   }
 }
@@ -92,11 +91,6 @@ resource "oci_core_instance" "this" {
   provisioner "file" {
     source      = "${path.module}/../../userdata/docker/Dockerfile-${each.value.hostname}"
     destination = "docker/Dockerfile"
-  }
-
-  provisioner "file" {
-    source      = "${path.module}/../../userdata/docker/requirements-${each.value.hostname}.txt"
-    destination = "docker/requirements.txt"
   }
 
   # docker
