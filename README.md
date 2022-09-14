@@ -22,7 +22,7 @@ If you don't have the required permissions and quota, contact your tenancy admin
 
 First off we'll need to do some pre deploy setup.  That's all detailed [here](https://github.com/oracle/oci-quickstart-prerequisites).
 
-Secondly, create a provider.auto.tfvars file (`cp provider.auto.tfvars.template provider.auto.tfvars`) and set all the parameters in the file. For S3 Compatibility API with Object Storage, you can reference [endpoint](https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/s3compatibleapi.htm) and [Customer Secret key] (https://docs.oracle.com/en-us/iaas/Content/Identity/Tasks/managingcredentials.htm#create-secret-key).
+Secondly, create a provider.auto.tfvars file (`cp provider.auto.tfvars.template provider.auto.tfvars`) and set all the parameters in the file. For S3 Compatibility API with Object Storage, you can reference [endpoint](https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/s3compatibleapi.htm) and [Customer Secret key](https://docs.oracle.com/en-us/iaas/Content/Identity/Tasks/managingcredentials.htm#create-secret-key).
 
 You might need to update `userdata\docker\requirements-training.txt` files with required dependencies for your specific machine learning applications with Python. You can also install extra Python packages in the docker containers later. 
 
