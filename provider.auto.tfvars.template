@@ -11,8 +11,6 @@ compartment_ids = {
 }
 
 s3 = {
-  aws_access_key_id="<customer_access_key_value>"
-  aws_secret_access_key="<customer_secret_key_value>"
   endpoint_url="https://<object_storage_namespace>.compat.objectstorage.<object_storage_region>.oraclecloud.com"
 }
 

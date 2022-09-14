@@ -185,7 +185,7 @@ data "template_file" "commands_template" {
     mysql_mlflow_password      = var.mysql_mlflow_password
     tracking        = oci_core_instance.this["tracking"].public_ip
     serving         = oci_core_instance.this["serving"].public_ip
-	s3_endpoint_url = var.s3.endpoint_url
+	  s3_endpoint_url = var.s3.endpoint_url
     bucket-url      = var.bucket-url
     database_port   = var.database_port
     database_ip     = var.database_ip
