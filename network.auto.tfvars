@@ -6,7 +6,7 @@ vcn_params = {
   vcn_mlflow = {
     compartment_name = "my_compartment"
     display_name     = "vcn_mlflow"
-    vcn_cidr         = "10.0.0.0/16"
+    vcn_cidr         = "10.1.0.0/16"
     dns_label        = "mlflow"
   }
 }
@@ -205,7 +205,7 @@ nsg_rules_params = {
 subnet_params = {
   sb_mlflow = {
     display_name      = "sb_mlflow"
-    cidr_block        = "10.0.1.0/24"
+    cidr_block        = "10.1.1.0/24"
     dns_label         = "dev"
     is_subnet_private = false
     sl_name           = "sl_mlflow"
