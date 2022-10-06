@@ -160,7 +160,7 @@ Create Kubernetes secret for pulling docker image from OCIR
 kubectl create secret docker-registry mlflowocirsecret --docker-server=<region-key>.ocir.io --docker-username='<tenancy-namespace>/<oci-username>' --docker-password='<oci-auth-token>' --docker-email='<email-address>'
 ```
 
-Update `mlflow-tracking-secret-template.yaml` and `mlflow-tracking-template.yaml` files. The yaml files are under oke\tracking directory.
+Update `oke\tracking\mlflow-tracking-secret-template.yaml` and `oke\tracking\mlflow-tracking-template.yaml` files. You can use the docker image create by the terraform above. You can also build the docker image using `userdata\docker\Dockerfile-tracking` and `userdata\docker\miniconda_install.sh` files and then push to OCI Registry that's detailed [here](https://docs.oracle.com/en-us/iaas/Content/Registry/Tasks/registrypushingimagesusingthedockercli.htm).
 
 Deploy the MLflow tracking server with the updated yaml files
 ```bash
