@@ -129,6 +129,42 @@ When you no longer need the MLflow environment, you can run this command to dest
 terraform destroy
 ```
 
+## Deploy MLflow tracking server on OKE
+
+You can also deploy MLflow tracking server on an existing OKE follow the following steps: 
+
+Set up ingress controller on Kubernetes cluster.  That's all detailed [here](https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengsettingupingresscontroller.htm).
+
+Set up local VCN peering between VCNs so the MLflow tracking server can access MySQL Database Service. That's all detailed [here](https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/localVCNpeering.htm).
+
+Access the Kubernetes cluster in Cloud Shell. That's all detailed [here](https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengdownloadkubeconfigfile.htm#cloudshelldownload).
+
+Create htpasswd file
+```bash
+htpasswd -c auth <first_username>
+htpasswd auth <other_username>
+```
+
+Create Kubernetes secret for basic authentication
+```bash
+kubectl create secret generic mlflow-tracking-basic-auth --from-file=auth --namespace mlflow
+```
+
+Create Kubernetes secret for pulling docker image from OCIR
+```bash
+kubectl create secret docker-registry mlflowocirsecret --docker-server=<region-key>.ocir.io --docker-username='<tenancy-namespace>/<oci-username>' --docker-password='<oci-auth-token>' --docker-email='<email-address>'
+```
+
+Update `mlflow-tracking-secret-template.yaml` and `mlflow-tracking-template.yaml` files. The yaml files are under oke\tracking directory.
+
+Deploy the MLflow tracking server with the updated yaml files
+```bash
+kubectl apply -f mlflow-tracking-secret.yaml
+kubectl apply -f mlflow-tracking-template.yaml
+```
+
+Your can now access the MLflow tracking server on OKE with `http://<ingress-nginx-controller-EXTERNAL-IP/tracking/` 
+
 ## Architecture Diagram
 
 ![OCI Diagram](./images/oci-mlflow.png)
