@@ -84,7 +84,7 @@ compute_linux_instances = {
 
 You then ssh to each compute instances and follow the instructions in "~/commands.txt" to start MLflow tracking server, setup HTTP Basic authentication, and serve a model. 
 
-The MLflow tracking server has two components for storage: a backend store and an artifact store. We use a MySQL Database Service instance as the backend store and an Object Storage bucket as the artifact store.
+The MLflow tracking server has two components for storage: a backend store and an artifact store. We use a MySQL Database Service instance as the backend store and an Object Storage bucket as the artifact store. Note that MySQL Database endpoint uses a private IP address and is not directly accessible from the internet. 
 
 
 ## Verify the Deployment
