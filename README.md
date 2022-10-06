@@ -139,6 +139,11 @@ Set up local VCN peering between VCNs so the MLflow tracking server can access M
 
 Access the Kubernetes cluster in Cloud Shell. That's all detailed [here](https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengdownloadkubeconfigfile.htm#cloudshelldownload).
 
+Create mlflow namespace
+```bash
+kubectl create namespace mlflow
+```
+
 Create htpasswd file
 ```bash
 htpasswd -c auth <first_username>
