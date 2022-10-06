@@ -30,7 +30,7 @@ mds_params = {
     port             = null
     port_x           = null
     compartment_name = "my_compartment"
-    subnet_name      = "sb_mlflow"
+    subnet_name      = "sb_mlflow_private"
     fd               = 1
   },
 }

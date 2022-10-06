@@ -34,6 +34,13 @@ rt_params = {
       },
     ]
   },
+  rt_mlflow_private = {
+    display_name = "rt_mlflow_private"
+    vcn_name     = "vcn_mlflow"
+
+    route_rules = [
+    ]
+  },
 }
 
 sl_params = {
@@ -88,13 +95,28 @@ sl_params = {
 
         tcp_options = [
           {
-            min = "8888"
-            max = "8888"
+            min = "1230"
+            max = "1250"
           },
         ]
 
         udp_options = []
       },
+    ]
+  }
+  sl_mlflow_private = {
+    vcn_name     = "vcn_mlflow"
+    display_name = "sl_mlflow_private"
+
+    egress_rules = [
+      {
+        stateless   = "false"
+        protocol    = "all"
+        destination = "0.0.0.0/0"
+      },
+    ]
+
+    ingress_rules = [
       {
         stateless   = "false"
         protocol    = "6"
@@ -103,8 +125,8 @@ sl_params = {
 
         tcp_options = [
           {
-            min = "1230"
-            max = "1250"
+            min = "22"
+            max = "22"
           },
         ]
 
@@ -206,12 +228,21 @@ subnet_params = {
   sb_mlflow = {
     display_name      = "sb_mlflow"
     cidr_block        = "10.1.1.0/24"
-    dns_label         = "dev"
+    dns_label         = "subnet1"
     is_subnet_private = false
     sl_name           = "sl_mlflow"
     rt_name           = "rt_mlflow"
     vcn_name          = "vcn_mlflow"
   },
+  sb_mlflow_private = {
+    display_name      = "sb_mlflow_private"
+    cidr_block        = "10.1.2.0/24"
+    dns_label         = "subnet2"
+    is_subnet_private = true
+    sl_name           = "sl_mlflow_private"
+    rt_name           = "rt_mlflow_private"
+    vcn_name          = "vcn_mlflow"
+  },  
 }
 
 lpg_params = {}

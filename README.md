@@ -131,11 +131,11 @@ terraform destroy
 
 ## Deploy MLflow tracking server on OKE
 
-You can also deploy MLflow tracking server on an existing OKE follow the following steps: 
+You can also deploy MLflow tracking server on an existing OKE and MySQL Database Service follow the following steps: 
 
 Set up ingress controller on Kubernetes cluster.  That's all detailed [here](https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengsettingupingresscontroller.htm).
 
-Set up local VCN peering between VCNs so the MLflow tracking server can access MySQL Database Service. That's all detailed [here](https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/localVCNpeering.htm).
+Set up local VCN peering between VCNs so the MLflow tracking server running on OKE can access MySQL Database Service. That's all detailed [here](https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/localVCNpeering.htm).
 
 Access the Kubernetes cluster in Cloud Shell. That's all detailed [here](https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengdownloadkubeconfigfile.htm#cloudshelldownload).
 
