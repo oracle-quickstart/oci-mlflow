@@ -28,6 +28,10 @@ data "oci_identity_availability_domains" "ads" {
   #compartment_id = var.compartment_ids["my_compartment"]
 }
 
+data "oci_objectstorage_namespace" "test_namespace" {
+  compartment_id = var.provider_oci.tenancy
+}
+
 resource "oci_core_instance" "this" {
   for_each                            = var.instance_params
   availability_domain                 = data.oci_identity_availability_domains.ads.availability_domains[each.value.ad - 1].name
@@ -102,7 +106,7 @@ resource "oci_core_instance" "this" {
       "sudo systemctl start docker",
       "sudo systemctl enable docker",
       # login
-      "echo '${var.authtoken}' | sudo docker login --username=${local.tenancy_name}/${var.username} --password-stdin  ${local.region_registry}.ocir.io",
+      "echo '${var.authtoken}' | sudo docker login --username=${data.oci_objectstorage_namespace.test_namespace.namespace}/${var.username} --password-stdin  ${local.region_registry}.ocir.io",
     ]
   }
 
@@ -111,8 +115,8 @@ resource "oci_core_instance" "this" {
     inline = [
       "cd docker",
       "sudo docker build -t mlflow-${each.value.hostname}:0.0.1 .",
-      "sudo docker tag mlflow-${each.value.hostname}:0.0.1 ${local.region_registry}.ocir.io/${local.tenancy_name}/${var.repo_name}/mlflow-${each.value.hostname}:0.0.1",
-      "sudo docker push ${local.region_registry}.ocir.io/${local.tenancy_name}/${var.repo_name}/mlflow-${each.value.hostname}:0.0.1",
+      "sudo docker tag mlflow-${each.value.hostname}:0.0.1 ${local.region_registry}.ocir.io/${data.oci_objectstorage_namespace.test_namespace.namespace}/${var.repo_name}/mlflow-${each.value.hostname}:0.0.1",
+      "sudo docker push ${local.region_registry}.ocir.io/${data.oci_objectstorage_namespace.test_namespace.namespace}/${var.repo_name}/mlflow-${each.value.hostname}:0.0.1",
     ]
   }
 
