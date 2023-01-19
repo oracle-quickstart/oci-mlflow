@@ -194,7 +194,7 @@ data "template_file" "commands_template" {
     database_port   = var.database_port
     database_ip     = var.database_ip
     region_registry = local.region_registry
-    tenancy_name    = local.tenancy_name
+    tenancy_namespace    = data.oci_objectstorage_namespace.test_namespace.namespace
     repo_name       = var.repo_name
   }
 }
