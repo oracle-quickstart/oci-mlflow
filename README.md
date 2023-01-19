@@ -82,7 +82,7 @@ compute_linux_instances = {
 ...
 ```
 
-You then need to ssh to each compute instances and follow the instructions in `~/commands.txt` to start MLflow tracking server, setup HTTP Basic authentication, and serve a model. 
+You then need to ssh to each compute instances and follow the instructions in `~/commands.txt` to start MLflow tracking server, setup HTTP Basic authentication, and serve a model. Now you can use the MLflow UI (`http://<tracking.ip>:3000`). 
 
 The MLflow tracking server has two components for storage: a backend store and an artifact store. We use a MySQL Database Service instance as the backend store and an Object Storage bucket as the artifact store. The MySQL DB system endpoint uses a private IP address and is not directly accessible from the internet. 
 
@@ -99,7 +99,7 @@ You need to install mlflow and boto3 libraries if not preinstalled in your conda
 
 ### Comparing the Models
 
-Use the MLflow UI (`http://<tracking.ip>:5000`) to compare the models that you have produced. On this page, you can see a list of experiment runs with metrics you can use to compare the models.
+Use the MLflow UI to compare the models that you have produced. On this page, you can see a list of experiment runs with metrics you can use to compare the models.
 
 Select a model, go to the model run page and copy the logged_model path (`runs:/<run_uuid>/model`).
 
